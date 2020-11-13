@@ -28,7 +28,7 @@ object Json {
         case JNumber(n) => JNumber(n)
         case JString(s) => JString(s)
         case JArray(js) => JArray(js.map(f))
-        case JObject(vs) => JObject(vs.mapValues(f))
+        case JObject(vs) => JObject(vs.view.mapValues(f).toMap)
       }
   }
 }

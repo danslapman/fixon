@@ -1,5 +1,5 @@
 val versions = Map(
-  "droste" -> "0.7.0",
+  "droste" -> "0.8.0",
   "scalatest" -> "3.0.8"
 )
 
