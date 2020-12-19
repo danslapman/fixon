@@ -1,6 +1,6 @@
 val versions = Map(
   "droste" -> "0.8.0",
-  "scalatest" -> "3.0.8"
+  "scalatest" -> "3.2.2"
 )
 
 lazy val fixonAST = (project in file("ast"))
