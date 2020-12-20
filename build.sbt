@@ -14,6 +14,18 @@ lazy val fixonAST = (project in file("ast"))
     )
   )
 
+lazy val fixonCirce = (project in file("circe"))
+  .dependsOn(fixonAST)
+  .settings(Settings.common)
+  .settings(
+    name := "fixon-circe",
+    parallelExecution in ThisBuild := false,
+    libraryDependencies ++= Seq(
+      "io.circe" %% "circe-core" % "0.13.0",
+      "org.scalatest" %% "scalatest" % versions("scalatest") % Test
+    )
+  )
+
 lazy val fixonParserAtto = (project in file("parser-atto"))
   .dependsOn(fixonAST)
   .settings(Settings.common)
@@ -27,8 +39,8 @@ lazy val fixonParserAtto = (project in file("parser-atto"))
   )
 
 lazy val root = (project in file("."))
-  .dependsOn(fixonAST, fixonParserAtto)
-  .aggregate(fixonAST, fixonParserAtto)
+  .dependsOn(fixonAST, fixonCirce, fixonParserAtto)
+  .aggregate(fixonAST, fixonCirce, fixonParserAtto)
   .settings(Settings.common)
   .settings(
     publish := {},
