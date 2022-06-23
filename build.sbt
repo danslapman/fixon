@@ -1,13 +1,14 @@
+ThisBuild / parallelExecution := false
+
 val versions = Map(
-  "droste" -> "0.8.0",
-  "scalatest" -> "3.2.2"
+  "droste" -> "0.9.0",
+  "scalatest" -> "3.2.12"
 )
 
 lazy val fixonAST = (project in file("ast"))
   .settings(Settings.common)
   .settings(
     name := "fixon-ast",
-    parallelExecution in ThisBuild := false,
     libraryDependencies ++= Seq(
       "io.higherkindness" %% "droste-core" % versions("droste"),
       "org.scalatest" %% "scalatest" % versions("scalatest") % Test
@@ -19,9 +20,8 @@ lazy val fixonCirce = (project in file("circe"))
   .settings(Settings.common)
   .settings(
     name := "fixon-circe",
-    parallelExecution in ThisBuild := false,
     libraryDependencies ++= Seq(
-      "io.circe" %% "circe-core" % "0.13.0",
+      "io.circe" %% "circe-core" % "0.14.1",
       "org.scalatest" %% "scalatest" % versions("scalatest") % Test
     )
   )
@@ -31,9 +31,8 @@ lazy val fixonParserAtto = (project in file("parser-atto"))
   .settings(Settings.common)
   .settings(
     name := "fixon-parser-atto",
-    parallelExecution in ThisBuild := false,
     libraryDependencies ++= Seq(
-      "org.tpolecat" %% "atto-core" % "0.8.0",
+      "org.tpolecat" %% "atto-core" % "0.9.5",
       "org.scalatest" %% "scalatest" % versions("scalatest") % Test
     )
   )
