@@ -1,6 +1,6 @@
 package fixon.parse
 
-import atto.Atto._
+import atto.Atto.*
 import atto.ParseResult.Done
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
@@ -12,6 +12,6 @@ class ParserSpec extends AnyFunSuite with Matchers {
     val sut = parser parseOnly data
 
     info(sut.toString)
-    sut shouldBe a [Done[_]]
+    sut shouldBe a [Done[?]]
   }
 }

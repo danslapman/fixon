@@ -1,7 +1,7 @@
 package fixon.ast
 
-import cats._
-import higherkindness.droste.data._
+import cats.*
+import higherkindness.droste.data.*
 
 sealed trait Json[T]
 final case class JNull[T]() extends Json[T]
@@ -14,7 +14,7 @@ object JArray {
 }
 final case class JObject[T](vs: Map[String, T]) extends Json[T]
 object JObject {
-  def apply[T](vs: (String, T)*): JObject[T] = JObject[T](Map(vs:_*))
+  def apply[T](vs: (String, T)*): JObject[T] = JObject[T](Map(vs*))
 }
 
 object Json {

@@ -1,10 +1,10 @@
 package fixon.parse
 
-import atto._
-import atto.Atto._
-import cats.instances.char._
-import cats.syntax.all._
-import fixon.ast._
+import atto.*
+import atto.Atto.*
+import cats.instances.char.*
+import cats.syntax.all.*
+import fixon.ast.*
 import higherkindness.droste.data.Fix
 
 object Definition {
@@ -16,7 +16,7 @@ object Definition {
   def jString(value: String): Json.J = Fix(JString[Json.J](value))
   def jNumber(value: BigDecimal): Json.J = Fix(JNumber[Json.J](value))
   def jArray(values: Seq[Json.J]): Json.J = Fix(JArray(values))
-  def jObject(values: List[(String, Json.J)]): Json.J = Fix(JObject(values :_*))
+  def jObject(values: List[(String, Json.J)]): Json.J = Fix(JObject(values*))
 
   // Bracketed, comma-separated sequence, internal whitespace allowed
   def seq[A](open: Char, p: Parser[A], close: Char): Parser[List[A]] =
@@ -44,10 +44,10 @@ object Definition {
   }
 
   // Delimited list
-  def sepByT[A](a: Parser[A], b: Parser[_]): Parser[List[A]] =
+  def sepByT[A](a: Parser[A], b: Parser[?]): Parser[List[A]] =
     sepBy(a.t, b.t)
 
   // Delimited pair, internal whitespace allowed
-  def pairByT[A,B](a: Parser[A], delim: Parser[_], b: Parser[B]): Parser[(A,B)] =
+  def pairByT[A,B](a: Parser[A], delim: Parser[?], b: Parser[B]): Parser[(A,B)] =
     pairBy(a.t, delim.t, b)
 }

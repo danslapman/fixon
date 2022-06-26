@@ -1,8 +1,8 @@
 package fixon
 
-import fixon.ast._
-import io.circe.{Json => CirceJson}
-import higherkindness.droste._
+import fixon.ast.*
+import io.circe.Json as CirceJson
+import higherkindness.droste.*
 
 package object circe_ {
   val fixon2Circe: Algebra[Json, CirceJson] = Algebra[Json, CirceJson] {
