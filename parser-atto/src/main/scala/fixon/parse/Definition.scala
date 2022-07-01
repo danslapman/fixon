@@ -10,14 +10,6 @@ import higherkindness.droste.data.Fix
 object Definition {
   // Adapted https://github.com/tpolecat/atto/blob/master/modules/docs/src/main/scala/json.scala
 
-  // Invariant constructors
-  def jNull: Json.J = Fix(JNull[Json.J]())
-  def jBoolean(value: Boolean): Json.J = Fix(JBoolean[Json.J](value))
-  def jString(value: String): Json.J = Fix(JString[Json.J](value))
-  def jNumber(value: BigDecimal): Json.J = Fix(JNumber[Json.J](value))
-  def jArray(values: Seq[Json.J]): Json.J = Fix(JArray(values))
-  def jObject(values: List[(String, Json.J)]): Json.J = Fix(JObject(values*))
-
   // Bracketed, comma-separated sequence, internal whitespace allowed
   def seq[A](open: Char, p: Parser[A], close: Char): Parser[List[A]] =
     char(open).t ~> sepByT(p, char(',')) <~ char(close)
@@ -28,13 +20,13 @@ object Definition {
 
   // Json Expression
   lazy val jexpr: Parser[Json.J] = delay {
-    stringLiteral        -| jString         |
-    seq('{', pair,  '}') -| jObject         |
-    seq('[', jexpr, ']') -| jArray          |
-    bigDecimal           -| jNumber         |
-    string("null")       >| jNull           |
-    string("true")       >| jBoolean(true)  |
-    string("false")      >| jBoolean(false)
+    stringLiteral        -| Json.string         |
+    seq('{', pair,  '}') -| Json.document       |
+    seq('[', jexpr, ']') -| Json.array          |
+    bigDecimal           -| Json.number         |
+    string("null")       >| Json.`null`         |
+    string("true")       >| Json.boolean(true)  |
+    string("false")      >| Json.boolean(false)
   }
 
   // Syntax for turning a parser into one that consumes trailing whitespace
