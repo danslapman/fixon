@@ -15,6 +15,16 @@ lazy val fixonAST = (project in file("ast"))
     )
   )
 
+lazy val fixonOps = (project in file("ops"))
+  .dependsOn(fixonAST)
+  .settings(Settings.common)
+  .settings(
+    name := "fixon-ops",
+    libraryDependencies ++= Seq(
+      "org.apache.commons" % "commons-text" % "1.9"
+    )
+  )
+
 lazy val fixonCirce = (project in file("circe"))
   .dependsOn(fixonAST)
   .settings(Settings.common)
@@ -27,7 +37,7 @@ lazy val fixonCirce = (project in file("circe"))
   )
 
 lazy val fixonParserAtto = (project in file("parser-atto"))
-  .dependsOn(fixonAST)
+  .dependsOn(fixonAST, fixonOps % "test->compile")
   .settings(Settings.common)
   .settings(
     name := "fixon-parser-atto",
@@ -38,8 +48,8 @@ lazy val fixonParserAtto = (project in file("parser-atto"))
   )
 
 lazy val root = (project in file("."))
-  .dependsOn(fixonAST, fixonCirce, fixonParserAtto)
-  .aggregate(fixonAST, fixonCirce, fixonParserAtto)
+  .dependsOn(fixonAST, fixonOps, fixonCirce, fixonParserAtto)
+  .aggregate(fixonAST, fixonOps, fixonCirce, fixonParserAtto)
   .settings(Settings.common)
   .settings(
     publish := {},
