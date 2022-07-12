@@ -13,4 +13,12 @@ package object ops {
     case JArray(js) => js.mkString("[", ",", "]")
     case JObject(vs) => vs.map { case (k, v) => s"\"$k\":$v"}.mkString("{", ",", "}")
   }
+
+  def dropNulls[A]: Trans[Json, Json, A] = Trans[Json, Json, A] {
+    case JObject(vs) => JObject(vs.filterNot {
+      case (_, JNull()) => true
+      case _ => false
+    })
+    case other => other
+  }
 }
