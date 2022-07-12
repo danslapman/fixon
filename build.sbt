@@ -10,6 +10,7 @@ lazy val fixonAST = (project in file("ast"))
   .settings(
     name := "fixon-ast",
     libraryDependencies ++= Seq(
+      "org.typelevel" %% "alleycats-core" % "2.7.0",
       "io.higherkindness" %% "droste-core" % versions("droste"),
       "org.scalatest" %% "scalatest" % versions("scalatest") % Test
     )
@@ -21,7 +22,8 @@ lazy val fixonOps = (project in file("ops"))
   .settings(
     name := "fixon-ops",
     libraryDependencies ++= Seq(
-      "org.apache.commons" % "commons-text" % "1.9"
+      "org.apache.commons" % "commons-text" % "1.9",
+      "org.scalatest" %% "scalatest" % versions("scalatest") % Test
     )
   )
 
