@@ -7,8 +7,8 @@ object Settings {
     organizationName := "danslapman",
     organizationHomepage := Some(url("https://github.com/danslapman")),
     version := "0.1.0",
-    scalaVersion := "3.2.1",
-    crossScalaVersions := Seq("2.13.10", "3.2.1"),
+    scalaVersion := "3.3.1",
+    crossScalaVersions := Seq("2.13.12", "3.3.1"),
     scalacOptions ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
         case Some((2, y)) if y >= 13 => Seq("-Ymacro-annotations", "-Xsource:3")
