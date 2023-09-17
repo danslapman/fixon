@@ -49,9 +49,20 @@ lazy val fixonParserAtto = (project in file("parser-atto"))
     )
   )
 
+lazy val fixonParserParboiled = (project in file("parser-parboiled"))
+  .dependsOn(fixonAST, fixonOps % "test->compile")
+  .settings(Settings.common)
+  .settings(
+    name := "fixon-parser-parboiled",
+    libraryDependencies ++= Seq(
+      "org.parboiled" %% "parboiled" % "2.5.0",
+      "org.scalatest" %% "scalatest" % versions("scalatest") % Test
+    )
+  )
+
 lazy val root = (project in file("."))
-  .dependsOn(fixonAST, fixonOps, fixonCirce, fixonParserAtto)
-  .aggregate(fixonAST, fixonOps, fixonCirce, fixonParserAtto)
+  .dependsOn(fixonAST, fixonOps, fixonCirce, fixonParserAtto, fixonParserParboiled)
+  .aggregate(fixonAST, fixonOps, fixonCirce, fixonParserAtto, fixonParserParboiled)
   .settings(Settings.common)
   .settings(
     publish := {},
