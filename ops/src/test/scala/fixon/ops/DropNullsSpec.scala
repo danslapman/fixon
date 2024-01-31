@@ -18,7 +18,7 @@ class DropNullsSpec extends AnyFunSuite with Matchers  {
 
     sut shouldBe Json.document(
       "f1" -> Json.string("v1"),
-      "f2" -> Json.document(Map.empty)
+      "f2" -> Json.document(Map.empty[String, Json.J])
     )
   }
 }
