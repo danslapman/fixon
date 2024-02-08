@@ -11,7 +11,7 @@ class WrapSpec extends AnyFunSuite with Matchers {
       "f1" -> Json.string("v1")
     )
 
-    val sut = scheme.zoo.futu(wrap("key", "value")).apply(data)
+    val sut = scheme.cata(wrap("key", "value").algebra).apply(data)
 
     sut shouldBe Json.array(
       Json.document("key" -> Json.string("f1"), "value" -> Json.string("v1"))

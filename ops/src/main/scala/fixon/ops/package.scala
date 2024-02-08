@@ -24,11 +24,9 @@ package object ops {
     case other => other
   }
 
-  def wrap(keyName: String, valName: String): CVCoalgebra[Json, Json.J] = CVCoalgebra[Json, Json.J] {
-    case Fix(jo @ JObject(vs)) if vs.keySet == Set(keyName, valName) => (jo: Json[Json.J]).map(Coattr.pure)
-    case Fix(JObject(vs)) => JArray(vs.map {
-      case (k, v) => Coattr.pure[Json, Json.J](Json.document(keyName -> Json.string(k), valName -> v))
-    }.toVector)
-    case json => Fix.un(json).map(Coattr.pure)
+  def wrap[A](keyName: String, valName: String): Trans[Json, Json, Json.J] = Trans[Json, Json, Json.J] {
+    case JObject(vs) if vs.keySet == Set(keyName, valName) => JObject(vs)
+    case JObject(vs) => JArray(vs.map { case (k, v) => Json.document(keyName -> Json.string(k), valName -> v)}.toVector)
+    case other => other
   }
 }
