@@ -30,7 +30,7 @@ object Json {
   def array(h: J, t: J*):J = Fix(JArray(h, t*))
   def document(values: Map[String, J]): J = Fix(JObject(values))
   def document(pairs: Seq[(String, J)]): J = Fix(JObject(pairs *))
-  def document(h: (String,J), t: (String, J)*): J = Fix(JObject((h +: t) *))
+  def document(h: (String,J ), t: (String, J)*): J = Fix(JObject((h +: t) *))
 
   implicit val jsonInstances: Traverse[Json] = new Traverse[Json] {
     override def map[A, B](fa: Json[A])(f: A => B): Json[B] =

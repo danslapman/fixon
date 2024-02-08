@@ -5,7 +5,7 @@ import higherkindness.droste.*
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class DropNullsSpec extends AnyFunSuite with Matchers  {
+class DropNullsSpec extends AnyFunSuite with Matchers {
   test("dropNull should drop nulls") {
     val data = Json.document(
       "f1" -> Json.string("v1"),
