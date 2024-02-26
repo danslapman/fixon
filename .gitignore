@@ -1,7 +1,7 @@
 *.class
 *.log
 **/target
-project/metals.sbt
+**/metals.sbt
 .bsp
 .idea
 .metals
